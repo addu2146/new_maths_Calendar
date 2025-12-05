@@ -231,6 +231,8 @@ class MathCalendar {
   }
 
   _setupAIButtons(dayData) {
+    let explainRevealed = false;
+
     document.querySelectorAll('.ai-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         const action = btn.dataset.action;
@@ -240,9 +242,23 @@ class MathCalendar {
           case 'hint':
             feedback.innerHTML = `<p class="ai-response">💡 Hint: Think about what "${dayData.t}" means and how it relates to the number.</p>`;
             break;
-          case 'explain':
+          case 'explain': {
+            if (!explainRevealed) {
+              feedback.innerHTML = `
+                <div class="peek-warning">
+                  <p>🚦 Peek alert! If you view the answer now, this question won't count as completed until you solve it yourself.</p>
+                  <button class="peek-btn" id="reveal-answer">Reveal anyway</button>
+                </div>
+              `;
+              document.getElementById('reveal-answer')?.addEventListener('click', () => {
+                explainRevealed = true;
+                feedback.innerHTML = `<p class="ai-response">📚 This question is about ${dayData.t}. The correct answer is "${dayData.a}". This relates to the broader topic of ${this.months.find(m => m.id === this.currentMonth)?.theme}.</p>`;
+              });
+              break;
+            }
             feedback.innerHTML = `<p class="ai-response">📚 This question is about ${dayData.t}. The correct answer is "${dayData.a}". This relates to the broader topic of ${this.months.find(m => m.id === this.currentMonth)?.theme}.</p>`;
             break;
+          }
           case 'context':
             const month = this.months.find(m => m.id === this.currentMonth);
             feedback.innerHTML = `<p class="ai-response">🔍 Context: This month features ${month?.mathematician}, known for contributions to ${month?.theme}.</p>`;

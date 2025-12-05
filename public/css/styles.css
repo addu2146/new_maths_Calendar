@@ -1439,6 +1439,28 @@ body {
     transform: translateY(-1px);
 }
 
+.peek-warning {
+    background: #fff7ed;
+    border: 2px dashed rgba(255, 123, 84, 0.55);
+    color: #0f172a;
+    padding: var(--space-base);
+    border-radius: 14px;
+    text-align: center;
+}
+
+.peek-btn {
+    margin-top: var(--space-sm);
+    padding: 10px 14px;
+    background: linear-gradient(120deg, #ff7b54, #ffb347);
+    border: none;
+    border-radius: 12px;
+    color: #0f172a;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgba(255, 123, 84, 0.25);
+}
+.peek-btn:hover { transform: translateY(-1px); }
+
 /* ============================================
    BADGE NOTIFICATION
    ============================================ */
