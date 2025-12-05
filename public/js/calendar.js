@@ -297,7 +297,7 @@ class MathCalendar {
         switch(action) {
           case 'hint': {
             feedback.innerHTML = '<p class="ai-response">💫 Thinking of a friendly hint...</p>';
-            this._callGemini(`Give a short, kid-friendly hint (no answers) for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Do not reveal the answer.`)
+            this._callGemini(`You are writing for a cheerful 10-year-old. Give one playful hint (no answer!) for this math question. Keep it short, encouraging, and use simple words. Question: ${dayData.q}. Topic: ${dayData.t}. Do NOT give the answer.`)
               .then(text => feedback.innerHTML = `<p class="ai-response">💡 ${text}</p>`)
               .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Hint not available right now. Try again!</p>');
             break;
@@ -313,14 +313,14 @@ class MathCalendar {
               document.getElementById('reveal-answer')?.addEventListener('click', () => {
                 explainRevealed = true;
                 feedback.innerHTML = '<p class="ai-response">💫 Getting your explanation...</p>';
-                this._callGemini(`Give a kid-friendly explanation and the correct answer for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}. Keep it short and encouraging.`)
+                this._callGemini(`You are explaining to a fun-loving 10-year-old. Explain the math idea, then reveal the correct answer once at the end. Keep it short, playful, and clear. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}.`)
                   .then(text => feedback.innerHTML = `<p class="ai-response">📚 ${text}</p>`)
                   .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Explanation not available right now. Try again!</p>');
               });
               break;
             }
             feedback.innerHTML = '<p class="ai-response">💫 Getting your explanation...</p>';
-            this._callGemini(`Give a kid-friendly explanation and the correct answer for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}. Keep it short and encouraging.`)
+            this._callGemini(`You are explaining to a fun-loving 10-year-old. Explain the math idea, then reveal the correct answer once at the end. Keep it short, playful, and clear. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}.`)
               .then(text => feedback.innerHTML = `<p class="ai-response">📚 ${text}</p>`)
               .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Explanation not available right now. Try again!</p>');
             break;
@@ -328,7 +328,7 @@ class MathCalendar {
           case 'context': {
             const month = this.months.find(m => m.id === this.currentMonth);
             feedback.innerHTML = '<p class="ai-response">💫 Fetching a fun fact...</p>';
-            this._callGemini(`Share a fun, 1-2 sentence fact about ${month?.mathematician} and the theme ${month?.theme}, for kids.`)
+            this._callGemini(`You are talking to a curious 10-year-old. Share one fun, 1-2 sentence fact about ${month?.mathematician} and the theme ${month?.theme}. Keep it playful, simple, and upbeat.`)
               .then(text => feedback.innerHTML = `<p class="ai-response">🔍 ${text}</p>`)
               .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Context not available right now. Try again!</p>');
             break;
