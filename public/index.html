@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematical Calendar 2025</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="floating-symbols"></div>
+  
+  <div class="app-container">
+    <header class="app-header">
+      <h1 class="app-title">Mathematical Calendar</h1>
+      <p class="app-subtitle">365 Days of Mathematical Discovery</p>
+      
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-label">Streak</span>
+          <span class="streak-count stat-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">✓</span>
+          <span class="stat-label">Completed</span>
+          <span class="completed-count stat-value">0</span>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="nav-bar"></nav>
+
+    <div class="header-card"></div>
+
+    <div class="calendar-grid"></div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" aria-label="Close">&times;</button>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
 
