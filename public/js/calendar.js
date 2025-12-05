@@ -116,13 +116,13 @@ class MathCalendar {
     const days = this.data[monthId] || [];
     const palette = this.artPalettes[(monthId - 1) % this.artPalettes.length];
     const [c1, c2] = palette;
+    const art = this._buildHeroArt(month);
     
     // Header
     this.headerCard.innerHTML = `
       <div class="month-hero">
-        <div class="math-art" style="background: radial-gradient(circle at 30% 30%, ${c1}, ${c2}); box-shadow: 0 12px 30px ${c1}55;">
-          <div class="math-art-core">${month.name.charAt(0)}</div>
-          <div class="math-art-ring"></div>
+        <div class="math-art large" style="background: radial-gradient(circle at 30% 30%, ${c1}, ${c2}); box-shadow: 0 18px 48px ${c1}55;">
+          ${art}
         </div>
         <div class="month-meta">
           <h1 class="month-title">${month.name}</h1>
@@ -165,6 +165,36 @@ class MathCalendar {
         this._openDay(month, day);
       });
     });
+  }
+
+  _buildHeroArt(month) {
+    const symbolSets = [
+      ['π', '∞', '∑', '√'],
+      ['Δ', 'θ', 'λ', 'φ'],
+      ['∫', '∂', 'σ', 'μ'],
+      ['⊕', '⊗', '≈', '≠'],
+      ['α', 'β', 'γ', 'Ω'],
+      ['√2', 'φ', 'ℵ₀', 'e'],
+      ['∇', '↺', '↻', '⇄'],
+      ['★', '✦', '✧', '✩'],
+      ['○', '◇', '⬟', '⬢'],
+      ['✿', '❀', '❁', '❃'],
+      ['♛', '♜', '♝', '♞'],
+      ['♪', '♩', '♫', '♬']
+    ];
+    const idx = (month.id - 1) % symbolSets.length;
+    const symbols = symbolSets[idx];
+
+    return `
+      <div class="math-art-orbit">
+        <span>${symbols[0]}</span>
+        <span>${symbols[1]}</span>
+        <span>${symbols[2]}</span>
+        <span>${symbols[3]}</span>
+      </div>
+      <div class="math-art-core big">${month.name.charAt(0)}</div>
+      <div class="math-art-ring"></div>
+    `;
   }
 
   _openDay(monthId, dayNum) {
