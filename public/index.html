@@ -3,45 +3,99 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mathematical Calendar 2025</title>
+  <title>Math Adventure Calendar</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Nunito:wght@500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="floating-symbols"></div>
-  
-  <div class="app-container">
-    <header class="app-header">
-      <h1 class="app-title">Mathematical Calendar</h1>
-      <p class="app-subtitle">365 Days of Mathematical Discovery</p>
-      
-      <div class="stats-bar">
-        <div class="stat">
-          <span class="stat-icon">🔥</span>
-          <span class="stat-label">Streak</span>
-          <span class="streak-count stat-value">0</span>
+
+  <header class="landing-hero">
+    <div class="hero-copy">
+      <div class="hero-tag">Made for curious kids</div>
+      <h1 class="hero-title">Math Adventure Calendar</h1>
+      <p class="hero-subtitle">Unlock a tiny math quest every day. Collect stickers, keep your streak, and celebrate big wins!</p>
+      <div class="hero-actions">
+        <a class="cta-btn primary" href="#calendar-section">Start today's puzzle</a>
+        <a class="cta-btn ghost" href="#how-it-works">How it works</a>
+      </div>
+      <div class="hero-badges">
+        <span class="pill">🎉 Daily surprises</span>
+        <span class="pill">🌈 Friendly hints</span>
+        <span class="pill">🏆 Earnable badges</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-sun">☀️</div>
+        <div class="hero-stars">★ ✦ ✧</div>
+        <p class="hero-mini-title">Today's Quest</p>
+        <p class="hero-mini-body">Solve a quick math riddle and watch your streak grow!</p>
+        <div class="hero-meter">
+          <div class="meter-fill"></div>
         </div>
-        <div class="stat">
-          <span class="stat-icon">✓</span>
-          <span class="stat-label">Completed</span>
-          <span class="completed-count stat-value">0</span>
-        </div>
-        <div class="progress-container">
-          <div class="progress-bar">
-            <div class="progress-fill"></div>
-          </div>
+        <div class="hero-stickers">
+          <span class="sticker">🦊</span>
+          <span class="sticker">🐳</span>
+          <span class="sticker">🦖</span>
+          <span class="sticker">🦕</span>
         </div>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <nav class="nav-bar"></nav>
+  <section id="how-it-works" class="info-row">
+    <div class="info-card">
+      <div class="info-icon">🗓️</div>
+      <h3>Pick a day</h3>
+      <p>Tap any date to open a colorful, bite-sized math puzzle.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">💡</div>
+      <h3>Get gentle hints</h3>
+      <p>Need help? Friendly hints and explainers are one tap away.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-icon">🎁</div>
+      <h3>Earn stickers</h3>
+      <p>Build your streak, unlock badges, and collect adorable sticker pals.</p>
+    </div>
+  </section>
 
-    <div class="header-card"></div>
+  <section id="calendar-section" class="calendar-shell">
+    <div class="app-container">
+      <header class="app-header">
+        <h2 class="app-title">Play the Calendar</h2>
+        <p class="app-subtitle">Jump into today's math adventure and keep your streak shining.</p>
+        
+        <div class="stats-bar">
+          <div class="stat">
+            <span class="stat-icon">🔥</span>
+            <span class="stat-label">Streak</span>
+            <span class="streak-count stat-value">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-icon">✓</span>
+            <span class="stat-label">Completed</span>
+            <span class="completed-count stat-value">0</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </header>
 
-    <div class="calendar-grid"></div>
-  </div>
+      <nav class="nav-bar"></nav>
+
+      <div class="header-card"></div>
+
+      <div class="calendar-grid"></div>
+    </div>
+  </section>
 
   <!-- Modal -->
   <div class="modal-overlay">
