@@ -30,7 +30,8 @@ app.get('/api/months', (_req, res) => {
 });
 
 const geminiHandler = async (req, res) => {
-  const { prompt } = req.body || {};
+  const body = req.body || {};
+  const prompt = typeof body === 'string' ? body : body.prompt;
   if (!prompt || typeof prompt !== 'string') {
     return res.status(400).json({ error: 'prompt is required' });
   }
