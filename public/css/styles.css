@@ -1646,6 +1646,51 @@ body {
 .mathematician { color: #ff7b54; }
 .theme { color: #475569; }
 
+.month-hero {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.math-art {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.math-art-ring {
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    border: 2px dashed rgba(255, 255, 255, 0.6);
+    animation: spinSlow 12s linear infinite;
+}
+
+.math-art-core {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 1.8rem;
+    color: #0f172a;
+    mix-blend-mode: multiply;
+}
+
+.month-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+@keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 .calendar-grid {
     background: #ffffff;
     border-radius: 18px;

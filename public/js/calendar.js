@@ -10,6 +10,20 @@ class MathCalendar {
     this.currentMonth = new Date().getMonth() + 1;
     this.progress = this._loadProgress();
     this.streak = this._calculateStreak();
+    this.artPalettes = [
+      ['#ff7b54', '#ffd166'],
+      ['#6dd3ff', '#8ec5fc'],
+      ['#a18cd1', '#fbc2eb'],
+      ['#ff9a9e', '#fad0c4'],
+      ['#84fab0', '#8fd3f4'],
+      ['#fddb92', '#d1fdff'],
+      ['#f6d365', '#fda085'],
+      ['#cfd9df', '#e2ebf0'],
+      ['#fbc2eb', '#a6c1ee'],
+      ['#ffd3a5', '#fd6585'],
+      ['#a8edea', '#fed6e3'],
+      ['#ffecd2', '#fcb69f']
+    ];
     
     this._bindElements();
     this._setupEventListeners();
@@ -100,12 +114,22 @@ class MathCalendar {
   _renderMonth(monthId) {
     const month = this.months.find(m => m.id === monthId);
     const days = this.data[monthId] || [];
+    const palette = this.artPalettes[(monthId - 1) % this.artPalettes.length];
+    const [c1, c2] = palette;
     
     // Header
     this.headerCard.innerHTML = `
-      <h1 class="month-title">${month.name}</h1>
-      <p class="mathematician">Featuring: ${month.mathematician}</p>
-      <p class="theme">Theme: ${month.theme}</p>
+      <div class="month-hero">
+        <div class="math-art" style="background: radial-gradient(circle at 30% 30%, ${c1}, ${c2}); box-shadow: 0 12px 30px ${c1}55;">
+          <div class="math-art-core">${month.name.charAt(0)}</div>
+          <div class="math-art-ring"></div>
+        </div>
+        <div class="month-meta">
+          <h1 class="month-title">${month.name}</h1>
+          <p class="mathematician">Featuring: ${month.mathematician}</p>
+          <p class="theme">Theme: ${month.theme}</p>
+        </div>
+      </div>
     `;
 
     // Calendar grid
