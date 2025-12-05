@@ -1,6 +1,8 @@
 // Mathematical Calendar - Core Logic
 import { DEFAULT_MONTHS, DEFAULT_DATA } from './data.js';
 
+const GEMINI_URL = window.GEMINI_API_URL || '/api/gemini';
+
 class MathCalendar {
   constructor() {
     this.months = DEFAULT_MONTHS;
@@ -239,9 +241,13 @@ class MathCalendar {
         const feedback = document.getElementById('feedback');
         
         switch(action) {
-          case 'hint':
-            feedback.innerHTML = `<p class="ai-response">💡 Hint: Think about what "${dayData.t}" means and how it relates to the number.</p>`;
+          case 'hint': {
+            feedback.innerHTML = '<p class="ai-response">💫 Thinking of a friendly hint...</p>';
+            this._callGemini(`Give a short, kid-friendly hint (no answers) for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Do not reveal the answer.`)
+              .then(text => feedback.innerHTML = `<p class="ai-response">💡 ${text}</p>`)
+              .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Hint not available right now. Try again!</p>');
             break;
+          }
           case 'explain': {
             if (!explainRevealed) {
               feedback.innerHTML = `
@@ -252,20 +258,41 @@ class MathCalendar {
               `;
               document.getElementById('reveal-answer')?.addEventListener('click', () => {
                 explainRevealed = true;
-                feedback.innerHTML = `<p class="ai-response">📚 This question is about ${dayData.t}. The correct answer is "${dayData.a}". This relates to the broader topic of ${this.months.find(m => m.id === this.currentMonth)?.theme}.</p>`;
+                feedback.innerHTML = '<p class="ai-response">💫 Getting your explanation...</p>';
+                this._callGemini(`Give a kid-friendly explanation and the correct answer for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}. Keep it short and encouraging.`)
+                  .then(text => feedback.innerHTML = `<p class="ai-response">📚 ${text}</p>`)
+                  .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Explanation not available right now. Try again!</p>');
               });
               break;
             }
-            feedback.innerHTML = `<p class="ai-response">📚 This question is about ${dayData.t}. The correct answer is "${dayData.a}". This relates to the broader topic of ${this.months.find(m => m.id === this.currentMonth)?.theme}.</p>`;
+            feedback.innerHTML = '<p class="ai-response">💫 Getting your explanation...</p>';
+            this._callGemini(`Give a kid-friendly explanation and the correct answer for this math question. Question: ${dayData.q}. Topic: ${dayData.t}. Correct answer: ${dayData.a}. Keep it short and encouraging.`)
+              .then(text => feedback.innerHTML = `<p class="ai-response">📚 ${text}</p>`)
+              .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Explanation not available right now. Try again!</p>');
             break;
           }
-          case 'context':
+          case 'context': {
             const month = this.months.find(m => m.id === this.currentMonth);
-            feedback.innerHTML = `<p class="ai-response">🔍 Context: This month features ${month?.mathematician}, known for contributions to ${month?.theme}.</p>`;
+            feedback.innerHTML = '<p class="ai-response">💫 Fetching a fun fact...</p>';
+            this._callGemini(`Share a fun, 1-2 sentence fact about ${month?.mathematician} and the theme ${month?.theme}, for kids.`)
+              .then(text => feedback.innerHTML = `<p class="ai-response">🔍 ${text}</p>`)
+              .catch(() => feedback.innerHTML = '<p class="ai-response">⚠️ Context not available right now. Try again!</p>');
             break;
+          }
         }
       });
     });
+  }
+
+  async _callGemini(prompt) {
+    const response = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+    if (!response.ok) throw new Error('Gemini failed');
+    const data = await response.json();
+    return data.text || 'No response.';
   }
 
   _closeModal() {

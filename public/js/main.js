@@ -4,10 +4,12 @@ import MathCalendar from './calendar.js';
 // Initialize calendar
 const calendar = new MathCalendar();
 
+const API_URL = window.MATH_API_URL || '/api/months';
+
 // Try to fetch data from API (if available)
 async function hydrateFromAPI() {
   try {
-    const response = await fetch('/api/months');
+    const response = await fetch(API_URL);
     if (response.ok) {
       const data = await response.json();
       calendar.setData(data.months, data.data);
