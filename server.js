@@ -12,7 +12,7 @@ async function runGemini(prompt) {
     throw new Error('missing-key');
   }
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+  const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
   const trimmed = String(prompt || '').slice(0, 800);
   const result = await model.generateContent(trimmed);
   return result.response.text();
