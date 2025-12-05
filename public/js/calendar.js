@@ -290,8 +290,16 @@ class MathCalendar {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt })
     });
-    if (!response.ok) throw new Error('Gemini failed');
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch (e) {
+      throw new Error('Gemini failed: bad JSON');
+    }
+    if (!response.ok) {
+      const msg = data?.error || 'Gemini failed';
+      throw new Error(msg);
+    }
     return data.text || 'No response.';
   }
 
