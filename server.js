@@ -17,7 +17,12 @@ async function runGemini(prompt) {
     model: 'gemini-2.5-flash',
     contents: trimmed,
   });
-  return result?.text();
+
+  const text = typeof result?.text === 'function'
+    ? result.text()
+    : (result?.text || result?.response?.text?.());
+
+  return text;
 }
 
 app.use(cors());

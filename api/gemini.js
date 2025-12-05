@@ -36,7 +36,11 @@ export default async function handler(req, res) {
       model: 'gemini-2.5-flash',
       contents: trimmed,
     });
-    const text = result?.text?.();
+
+    const text = typeof result?.text === 'function'
+      ? result.text()
+      : (result?.text || result?.response?.text?.());
+
     if (!text) {
       return res.status(500).json({ error: 'Gemini returned empty text' });
     }
