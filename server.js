@@ -17,12 +17,31 @@ async function runGemini(prompt) {
     model: 'gemini-2.5-flash',
     contents: trimmed,
   });
+  return extractText(result);
+}
 
-  const text = typeof result?.text === 'function'
-    ? result.text()
-    : (result?.text || result?.response?.text?.());
+function extractText(result) {
+  try {
+    if (!result) return '';
+    if (typeof result.text === 'function') return result.text();
+    if (typeof result.text === 'string') return result.text;
+    if (typeof result?.response?.text === 'function') return result.response.text();
+    if (typeof result?.response?.text === 'string') return result.response.text;
 
-  return text;
+    const candidates = result?.response?.candidates || result?.candidates;
+    if (Array.isArray(candidates) && candidates.length) {
+      const parts = candidates[0]?.content?.parts;
+      if (Array.isArray(parts)) {
+        const piece = parts.find(p => typeof p.text === 'string');
+        if (piece?.text) return piece.text;
+      }
+      const firstText = candidates[0]?.content?.parts?.[0];
+      if (typeof firstText === 'string') return firstText;
+    }
+    return '';
+  } catch {
+    return '';
+  }
 }
 
 app.use(cors());
