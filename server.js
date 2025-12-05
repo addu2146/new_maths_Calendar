@@ -1,21 +1,23 @@
 import express from 'express';
 import cors from 'cors';
 import { DEFAULT_MONTHS, DEFAULT_DATA } from './public/js/data.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_API_KEY = (process.env.GEMINI_API_KEY || '').trim();
 
 async function runGemini(prompt) {
   if (!GEMINI_API_KEY) {
     throw new Error('missing-key');
   }
-  const genAI = new GoogleGenerativeAI({ apiKey: GEMINI_API_KEY, apiVersion: 'v1' });
-  const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+  const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
   const trimmed = String(prompt || '').slice(0, 800);
-  const result = await model.generateContent(trimmed);
-  return result.response.text();
+  const result = await ai.models.generateContent({
+    model: 'gemini-2.5-flash',
+    contents: trimmed,
+  });
+  return result?.text();
 }
 
 app.use(cors());

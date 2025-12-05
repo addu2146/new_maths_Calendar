@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 // Ensure Node runtime on Vercel
 export const config = { runtime: 'nodejs' };
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = (process.env.GEMINI_API_KEY || '').trim();
   if (!apiKey) {
     return res.status(500).json({ error: 'GEMINI_API_KEY not set on server' });
   }
@@ -30,11 +30,13 @@ export default async function handler(req, res) {
   }
 
   try {
-    const genAI = new GoogleGenerativeAI({ apiKey, apiVersion: 'v1' });
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const ai = new GoogleGenAI({ apiKey });
     const trimmed = String(prompt).slice(0, 800);
-    const result = await model.generateContent(trimmed);
-    const text = result?.response?.text?.();
+    const result = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: trimmed,
+    });
+    const text = result?.text?.();
     if (!text) {
       return res.status(500).json({ error: 'Gemini returned empty text' });
     }
