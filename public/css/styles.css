@@ -235,11 +235,17 @@ body {
     color: rgba(255, 255, 255, 0.1);
     animation: floatSymbol 25s linear infinite;
     bottom: -50px;
+    text-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+    mix-blend-mode: soft-light;
 }
 
 @keyframes floatSymbol {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(-110vh) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .float-symbol { animation: none; }
 }
 
 /* ============================================
@@ -428,6 +434,41 @@ body {
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.88));
     padding: var(--space-lg) var(--space-md) var(--space-xl);
     border-top: 2px dashed rgba(255, 214, 102, 0.6);
+    position: relative;
+    overflow: hidden;
+}
+
+.calendar-shell::before,
+.calendar-shell::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.8;
+    background:
+        radial-gradient(circle at 10% 30%, rgba(255, 214, 102, 0.18), transparent 28%),
+        radial-gradient(circle at 90% 20%, rgba(109, 211, 255, 0.16), transparent 26%),
+        radial-gradient(circle at 80% 80%, rgba(255, 123, 84, 0.14), transparent 32%);
+    animation: driftGlow 18s ease-in-out infinite alternate;
+}
+
+.calendar-shell::after {
+    opacity: 0.5;
+    filter: blur(30px);
+    animation-duration: 22s;
+    mix-blend-mode: screen;
+}
+
+@keyframes driftGlow {
+    0% { transform: translate3d(-8px, -6px, 0) scale(1); }
+    100% { transform: translate3d(8px, 10px, 0) scale(1.02); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .calendar-shell::before,
+    .calendar-shell::after {
+        animation: none;
+    }
 }
 
 /* ============================================

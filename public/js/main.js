@@ -20,31 +20,10 @@ async function hydrateFromAPI() {
   }
 }
 
-// Create floating background symbols
-function createFloatingSymbols() {
-  const symbols = ['π', 'Σ', '∞', '√', '∫', 'φ', 'θ', 'Δ', '∂', 'λ', 'μ', 'σ'];
-  const container = document.querySelector('.floating-symbols');
-  
-  if (!container) return;
-
-  for (let i = 0; i < 20; i++) {
-    const symbol = document.createElement('span');
-    symbol.className = 'float-symbol';
-    symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    symbol.style.left = Math.random() * 100 + '%';
-    symbol.style.animationDelay = Math.random() * 20 + 's';
-    symbol.style.animationDuration = (15 + Math.random() * 20) + 's';
-    symbol.style.fontSize = (1 + Math.random() * 2) + 'rem';
-    symbol.style.opacity = 0.1 + Math.random() * 0.2;
-    container.appendChild(symbol);
-  }
-}
-
 // Initialize
 async function init() {
   await hydrateFromAPI();
   calendar.init();
-  createFloatingSymbols();
   
   // Triple-click title for rainbow mode
   let titleClicks = 0;

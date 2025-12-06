@@ -92,6 +92,39 @@ class MathCalendar {
     this._renderNav();
     this._renderMonth(this.currentMonth);
     this._updateStats();
+    this._populateFloatingSymbols();
+  }
+
+  _populateFloatingSymbols() {
+    const container = document.querySelector('.floating-symbols');
+    if (!container) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const smallScreen = window.innerWidth < 640;
+    const sprites = ['✦', '✧', '❖', '⌁', '∞', 'π', '÷', '×', '∑', '√', '☆', '⚡', '🎲', '🧩'];
+    const count = reduceMotion ? 10 : smallScreen ? 12 : 18;
+
+    container.innerHTML = '';
+
+    for (let i = 0; i < count; i++) {
+      const span = document.createElement('span');
+      span.className = 'float-symbol';
+      span.textContent = sprites[i % sprites.length];
+
+      const size = (Math.random() * 1.1 + 0.9).toFixed(2);
+      const left = Math.random() * 100;
+      const delay = Math.random() * 18;
+      const duration = Math.random() * 16 + 18;
+      const opacity = (Math.random() * 0.35 + 0.25).toFixed(2);
+
+      span.style.left = `${left}%`;
+      span.style.fontSize = `${size}rem`;
+      span.style.animationDelay = `${delay}s`;
+      span.style.animationDuration = `${duration}s`;
+      span.style.opacity = opacity;
+
+      container.appendChild(span);
+    }
   }
 
   _renderNav() {
