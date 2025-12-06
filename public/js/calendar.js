@@ -24,6 +24,7 @@ class MathCalendar {
       ['#a8edea', '#fed6e3'],
       ['#ffecd2', '#fcb69f']
     ];
+    this.monthEmojis = ['✨','📚','🧠','🎨','🎯','🚀','🧩','🌈','🔭','🧮','🧪','🎁'];
     
     this._bindElements();
     this._setupEventListeners();
@@ -117,6 +118,7 @@ class MathCalendar {
     const palette = this.artPalettes[(monthId - 1) % this.artPalettes.length];
     const [c1, c2] = palette;
     const art = this._buildHeroArt(month);
+    const badge = this.monthEmojis[(monthId - 1) % this.monthEmojis.length];
     
     // Header
     this.headerCard.innerHTML = `
@@ -125,7 +127,7 @@ class MathCalendar {
           ${art}
         </div>
         <div class="month-meta">
-          <h1 class="month-title">${month.name}</h1>
+          <div class="month-title-row"><span class="month-emoji">${badge}</span><h1 class="month-title">${month.name}</h1></div>
           <p class="mathematician">Featuring: ${month.mathematician}</p>
           <p class="theme">Theme: ${month.theme}</p>
         </div>

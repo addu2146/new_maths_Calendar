@@ -1640,6 +1640,20 @@ body {
     border-radius: 18px;
     border: 2px solid rgba(109, 211, 255, 0.25);
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(255, 214, 102, 0.14), transparent 35%),
+      radial-gradient(circle at 80% 30%, rgba(109, 211, 255, 0.12), transparent 38%),
+      radial-gradient(circle at 60% 75%, rgba(255, 122, 84, 0.12), transparent 42%);
+    pointer-events: none;
+    opacity: 0.8;
 }
 
 .month-title { color: #0f172a; }
@@ -1651,6 +1665,17 @@ body {
     grid-template-columns: auto 1fr;
     align-items: center;
     gap: var(--space-lg);
+}
+
+.month-title-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.month-emoji {
+    font-size: 1.6rem;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
 }
 
 .math-art {
